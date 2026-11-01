@@ -50,3 +50,10 @@ export interface EverythingResponse extends BaseApiResponse {
     totalResults: number;
     articles: Article[];
 }
+
+export type SourceListItem = Pick<Source, 'id' | 'name'>;
+
+export type NewsListItem = Pick<
+    Article,
+    'source' | 'author' | 'urlToImage' | 'publishedAt' | 'title' | 'description' | 'url'
+>;
