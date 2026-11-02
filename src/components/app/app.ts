@@ -17,7 +17,11 @@ class App {
         if (!sourcesContainer) return;
 
         sourcesContainer.addEventListener('click', (e) =>
-            this.controller.getNews(e as MouseEvent, (data: EverythingResponse) => this.view.drawNews(data))
+            this.controller.getNews(
+                e as MouseEvent,
+                (data: EverythingResponse) => this.view.drawNews(data),
+                () => this.view.showNewsLoader()
+            )
         );
         this.controller.getSources((data: SourcesResponse) => this.view.drawSources(data));
     }

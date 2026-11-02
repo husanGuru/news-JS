@@ -2,7 +2,21 @@ import './news.css';
 import { NewsListItem } from '../../../types/news-api.types';
 
 class News {
+    public showLoader(): void {
+        const newsContainer = document.querySelector('.news');
+        if (!newsContainer) return;
+        newsContainer.innerHTML = '<div class="news__spinner" role="status" aria-label="Loading news"></div>';
+    }
+
     public draw(data: Readonly<NewsListItem>[]): void {
+        const newsContainer = document.querySelector('.news');
+        if (!newsContainer) return;
+
+        if (data.length === 0) {
+            newsContainer.innerHTML = '<p class="news__empty">No news found for this source.</p>';
+            return;
+        }
+
         const news = data.length >= 10 ? data.filter((_item, idx) => idx < 10) : data;
 
         const fragment = document.createDocumentFragment();
@@ -37,8 +51,6 @@ class News {
             fragment.append(newsClone);
         });
 
-        const newsContainer = document.querySelector('.news');
-        if (!newsContainer) return;
         newsContainer.innerHTML = '';
         newsContainer.appendChild(fragment);
     }

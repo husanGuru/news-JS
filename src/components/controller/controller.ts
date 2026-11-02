@@ -12,7 +12,7 @@ class AppController extends AppLoader {
         );
     }
 
-    public getNews(e: MouseEvent, callback: ResponseCallback<EverythingResponse>): void {
+    public getNews(e: MouseEvent, callback: ResponseCallback<EverythingResponse>, onStart?: () => void): void {
         let target = e.target as HTMLElement;
         const newsContainer = e.currentTarget as HTMLElement;
 
@@ -21,6 +21,7 @@ class AppController extends AppLoader {
                 const sourceId = target.getAttribute('data-source-id');
                 if (sourceId && newsContainer.getAttribute('data-source') !== sourceId) {
                     newsContainer.setAttribute('data-source', sourceId);
+                    onStart?.();
                     super.getResp<EverythingResponse>(
                         {
                             endpoint: NewsApiEndpoint.Everything,
